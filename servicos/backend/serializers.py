@@ -1,12 +1,32 @@
 from rest_framework import serializers
 from .models import *
 
-class ClienteSerializer(serializers.ModelSerializer):
+class AutorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cliente
-        fields = '__all__' 
+        model = Autor
+        fields = '__all__'
 
-class ServicoSerializer(serializers.ModelSerializer):
+class LivrosSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Servico
+        model = Livros
+        fields = '__all__'
+
+class EditorasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Editoras
+        fields = '__all__'
+
+class ReservasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reservas
+        fields = '__all__'
+
+class UsuariosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuarios
+        fields = '__all__'
+
+class EmprestimosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Emprestimos
         fields = '__all__'

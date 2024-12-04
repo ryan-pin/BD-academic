@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Cliente
 from .serializers import *
 
 from rest_framework.response import Response
@@ -9,24 +8,26 @@ from rest_framework import status
 # from django.db.models import Count, Max, Min, Sum
 
 
-class ClienteViewSet(viewsets.ModelViewSet):
-    queryset = Cliente.objects.all()
-    serializer_class = ClienteSerializer 
+class AutorViewSet(viewsets.ModelViewSet):
+    queryset = Autor.objects.all()
+    serializer_class = AutorSerializer
 
-class ServicoViewSet(viewsets.ModelViewSet):
-    queryset = Servico.objects.all()
-    serializer_class = ServicoSerializer
+class LivrosViewSet(viewsets.ModelViewSet):
+    queryset = Livros.objects.all()
+    serializer_class = LivrosSerializer
 
-    @action(detail=False, methods=['get'])
-    def servicos_cliente(self, request):
-        cliente_id = request.query_params.get('cliente_id')
-        servicos = Servico.objects.filter(cliente_id=cliente_id)
-        serializer = ServicoSerializer(servicos, many=True)
-        return Response(serializer.data)
-    
-    @action(detail=False, methods=['get'])
-    def servicos_pendentes(self, request):
-        cliente_id = request.query_params.get('cliente_id')
-        servicos = Servico.objects.filter(cliente_id=cliente_id, pago=False)
-        serializer = ServicoSerializer(servicos, many=True)
-        return Response(serializer.data)
+class EditorasViewSet(viewsets.ModelViewSet):
+    queryset = Editoras.objects.all()
+    serializer_class = EditorasSerializer
+
+class ReservasViewSet(viewsets.ModelViewSet):
+    queryset = Reservas.objects.all()
+    serializer_class = ReservasSerializer
+
+class UsuariosViewSet(viewsets.ModelViewSet):
+    queryset = Usuarios.objects.all()
+    serializer_class = UsuariosSerializer
+
+class EmprestimosViewSet(viewsets.ModelViewSet):
+    queryset = Emprestimos.objects.all()
+    serializer_class = EmprestimosSerializer
