@@ -15,8 +15,6 @@ class Livros(models.Model):
     quantidade = models.IntegerField("Quantidade de exemplares")
 
     author = models.ForeignKey(Autor, on_delete=models.CASCADE)
-    emprestimos = models.ManyToManyField('Emprestimos', blank=True)
-    reservas = models.ForeignKey('Reservas', on_delete=models.CASCADE, blank=True, null=True)
     
 
     def __str__(self):
@@ -35,26 +33,27 @@ class Editoras(models.Model):
         return f'{self.nome}'
     
 class Reservas(models.Model):
-    livro = models.ForeignKey('Livros', on_delete=models.CASCADE, related_name='Reservas')
-
+    usuario = models.ForeignKey('Usuarios', on_delete=models.CASCADE)  
+    livro = models.ForeignKey('Livros', on_delete=models.CASCADE)
+    
     def __str__(self):
-        return f'{self.livro}'
+        return f'Reserva de {self.usuario.nome} para o livro {self.livro.nome}'
 
 class Usuarios(models.Model):
     nome = models.CharField(max_length=100)
     social_midia = models.CharField(max_length=100)
     endereço = models.CharField(max_length=200)
 
-    reservas = models.ManyToManyField(Reservas, blank=True)
-
     def __str__(self):
         return f'{self.nome}'
 
 class Emprestimos(models.Model):
-    usuario = models.ForeignKey('Usuarios', on_delete=models.CASCADE)    
+    usuario = models.ForeignKey('Usuarios', on_delete=models.CASCADE)
+    livro = models.ForeignKey('Livros', on_delete=models.CASCADE)
+
 
     def __str__(self):
-        return f'{self.usuario}'
+        return f'{self.usuario.nome} - {self.livro.nome}'
     
 
     
